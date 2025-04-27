@@ -8,25 +8,40 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
         --primary: #2563eb;
         --primary-dark: #1d4ed8;
+        --primary-light: #3b82f6;
+        --primary-ultralight: #eff6ff;
         --secondary: #4f46e5;
         --accent: #7c3aed;
-        --success: #059669;
-        --warning: #d97706;
-        --danger: #dc2626;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --danger: #ef4444;
         --gray-50: #f9fafb;
         --gray-100: #f3f4f6;
         --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
         --gray-700: #374151;
         --gray-800: #1f2937;
+        --gray-900: #111827;
         --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
           0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 6px 10px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
           0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
       }
 
       * {
@@ -40,16 +55,18 @@
           Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         line-height: 1.6;
         color: var(--gray-800);
-        background-color: var(--gray-100);
+        background-color: var(--gray-50);
+        overflow-x: hidden;
       }
 
       header {
         background-color: white;
-        box-shadow: var(--shadow-sm);
-        padding: 1.25rem 2rem;
+        box-shadow: var(--shadow);
+        padding: 1.5rem 2rem;
         position: sticky;
         top: 0;
         z-index: 10;
+        border-bottom: 1px solid var(--gray-200);
       }
 
       .header-content {
@@ -60,77 +77,200 @@
         align-items: center;
       }
 
+      .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        border-radius: 10px;
+        color: white;
+        font-size: 1.25rem;
+      }
+
       .header-title {
-        color: var(--gray-800);
+        color: var(--gray-900);
         font-size: 1.5rem;
         font-weight: 600;
+        letter-spacing: -0.025em;
       }
 
       .header-subtitle {
-        color: var(--gray-700);
-        font-size: 0.875rem;
+        color: var(--gray-600);
+        font-size: 0.9rem;
         margin-top: 0.25rem;
+        letter-spacing: -0.01em;
+      }
+
+      .search-container {
+        position: relative;
+        width: 300px;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 2.5rem;
+        border: 1px solid var(--gray-300);
+        border-radius: 9999px;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        background-color: var(--gray-50);
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--primary-light);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        background-color: white;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray-500);
       }
 
       main {
         max-width: 1400px;
-        margin: 2rem auto;
+        margin: 3rem auto;
         padding: 0 2rem;
+      }
+
+      .heading-section {
+        margin-bottom: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--gray-900);
+        margin-bottom: 0.75rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.125rem;
+        color: var(--gray-600);
+        max-width: 700px;
+      }
+
+      .category-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--gray-200);
+        margin-bottom: 2rem;
+        gap: 1.5rem;
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .category-tab {
+        cursor: pointer;
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        color: var(--gray-600);
+        border-bottom: 2px solid transparent;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+
+      .category-tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+      }
+
+      .category-tab:hover:not(.active) {
+        color: var(--gray-800);
       }
 
       .app-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
         gap: 2rem;
-        margin-top: 2rem;
       }
 
       .app-card {
         background-color: white;
-        border-radius: 12px;
+        border-radius: 16px;
         box-shadow: var(--shadow);
         transition: all 0.3s ease;
         border: 1px solid var(--gray-200);
+        overflow: hidden;
+        position: relative;
       }
 
       .app-card:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-lg);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--gray-300);
+      }
+
+      .app-card:hover .app-icon {
+        transform: scale(1.1);
       }
 
       .app-header {
-        padding: 1.5rem;
-        border-bottom: 1px solid var(--gray-200);
+        padding: 1.75rem 1.75rem 1.25rem;
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 1.25rem;
       }
 
       .app-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
         color: white;
-        font-size: 1.25rem;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .app-icon::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+        z-index: 1;
+      }
+
+      .app-icon i {
+        position: relative;
+        z-index: 2;
       }
 
       .app-title {
         font-size: 1.25rem;
         font-weight: 600;
-        color: var(--gray-800);
+        color: var(--gray-900);
+        letter-spacing: -0.01em;
       }
 
       .app-content {
-        padding: 1.5rem;
+        padding: 0 1.75rem 1.75rem;
       }
 
       .app-description {
-        color: var(--gray-700);
-        margin-bottom: 1.5rem;
+        color: var(--gray-600);
+        margin-bottom: 1.75rem;
         font-size: 0.9375rem;
+        line-height: 1.5;
       }
 
       .app-actions {
@@ -161,32 +301,56 @@
 
       .open-link:hover {
         background-color: var(--primary-dark);
+        box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+      }
+
+      .open-link:active {
+        transform: translateY(1px);
       }
 
       .copy-link {
         background-color: var(--gray-100);
-        color: var(--gray-800);
+        color: var(--gray-700);
         border: 1px solid var(--gray-200);
       }
 
       .copy-link:hover {
         background-color: var(--gray-200);
+        color: var(--gray-800);
+      }
+
+      .copy-link:active {
+        transform: translateY(1px);
+      }
+
+      .new-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: var(--accent);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+        border-radius: 9999px;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
       }
 
       .toast {
         position: fixed;
-        bottom: 1rem;
+        bottom: 2rem;
         right: 2rem;
-        background-color: var(--success);
+        background-color: var(--gray-900);
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 8px;
-        box-shadow: var(--shadow);
+        box-shadow: var(--shadow-lg);
         display: flex;
         align-items: center;
         gap: 0.5rem;
         transform: translateY(150%);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         z-index: 100;
       }
 
@@ -194,19 +358,137 @@
         transform: translateY(0);
       }
 
+      .toast i {
+        color: var(--success);
+      }
+
+      footer {
+        border-top: 1px solid var(--gray-200);
+        background-color: white;
+        padding: 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.875rem;
+        color: var(--gray-600);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .footer-link {
+        color: var(--gray-600);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      .footer-link:hover {
+        color: var(--primary);
+      }
+
+      /* Responsive styles */
+      @media (max-width: 1024px) {
+        .app-grid {
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+      }
+
       @media (max-width: 768px) {
         .header-content {
           flex-direction: column;
+          gap: 1rem;
           text-align: center;
         }
 
+        .search-container {
+          width: 100%;
+          max-width: 400px;
+        }
+
         main {
-          padding: 0 1rem;
+          padding: 0 1.5rem;
+          margin: 2rem auto;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .section-subtitle {
+          font-size: 1rem;
         }
 
         .app-grid {
           grid-template-columns: 1fr;
         }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 1.5rem;
+          text-align: center;
+        }
+
+        .footer-links {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1.5rem;
+        }
+      }
+
+      /* Subtle animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+
+      .app-card {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+
+      .app-card:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+
+      .app-card:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+
+      .app-card:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+
+      .app-card:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+
+      .app-card:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+
+      .app-card:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+
+      .app-card:nth-child(7) {
+        animation-delay: 0.35s;
       }
     </style>
   </head>
@@ -214,18 +496,48 @@
   <body>
     <header>
       <div class="header-content">
-        <div>
-          <h1 class="header-title">Our Applications Portal</h1>
-          <p class="header-subtitle">
-            Access all your business applications in one place
-          </p>
+        <div class="logo-container">
+          <div class="logo">
+            <i class="fas fa-th"></i>
+          </div>
+          <div>
+            <h1 class="header-title">GroupM Applications Portal</h1>
+            <p class="header-subtitle">
+              Access all your business applications in one place
+            </p>
+          </div>
+        </div>
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search applications..."
+            id="searchInput"
+          />
         </div>
       </div>
     </header>
     <main>
-      <div class="app-grid">
+      <!-- <div class="heading-section animate-fade-in">
+        <h2 class="section-title">Welcome to your Applications Portal</h2>
+        <p class="section-subtitle">
+          Quick access to all the tools and applications you need to work
+          efficiently across the GroupM network.
+        </p>
+      </div> -->
+
+      <div class="category-tabs animate-fade-in">
+        <div class="category-tab active" data-category="all">All Applications</div>
+        <div class="category-tab" data-category="Operations">Operations</div>
+        <div class="category-tab" data-category="hr">HR</div>
+        <div class="category-tab" data-category="media">Media Management</div>
+        <div class="category-tab" data-category="it">IT Resources</div>
+      </div>
+
+      <div class="app-grid" id="appGrid">
         <!-- REMS -->
-        <div class="app-card">
+        <div class="app-card" data-category="Operations">
           <div class="app-header">
             <div class="app-icon" style="background-color: var(--primary)">
               <i class="fas fa-building"></i>
@@ -234,7 +546,7 @@
           </div>
           <div class="app-content">
             <p class="app-description">
-              Requisition & Cash Expenses Management.
+              Manage all your requisitions and cash expenses efficiently in one centralized system. Track approvals, budgets, and expense reports in real-time.
             </p>
             <div class="app-actions">
               <a
@@ -257,7 +569,7 @@
         </div>
 
         <!-- ITSM -->
-        <div class="app-card">
+        <div class="app-card" data-category="it">
           <div class="app-header">
             <div class="app-icon" style="background-color: var(--secondary)">
               <i class="fas fa-headset"></i>
@@ -265,7 +577,9 @@
             <h2 class="app-title">ITSM</h2>
           </div>
           <div class="app-content">
-            <p class="app-description">IT Services Management.</p>
+            <p class="app-description">
+              Comprehensive IT Services Management platform for ticket management, service requests, and IT resource allocation. Get the support you need, when you need it.
+            </p>
             <div class="app-actions">
               <a
                 href="https://itservicesmgt.com/"
@@ -287,7 +601,7 @@
         </div>
 
         <!-- HRIS -->
-        <div class="app-card">
+        <div class="app-card" data-category="hr">
           <div class="app-header">
             <div class="app-icon" style="background-color: var(--warning)">
               <i class="fas fa-users"></i>
@@ -295,7 +609,9 @@
             <h2 class="app-title">HRIS</h2>
           </div>
           <div class="app-content">
-            <p class="app-description">Human resources information system.</p>
+            <p class="app-description">
+              Complete human resources information system for managing employee data, benefits, time-off requests, and performance reviews.
+            </p>
             <div class="app-actions">
               <a
                 href="http://20.188.107.18"
@@ -317,7 +633,7 @@
         </div>
 
         <!-- mNext -->
-        <div class="app-card">
+        <div class="app-card" data-category="media">
           <div class="app-header">
             <div class="app-icon" style="background-color: var(--accent)">
               <i class="fas fa-mobile-alt"></i>
@@ -326,7 +642,7 @@
           </div>
           <div class="app-content">
             <p class="app-description">
-              Next-generation Media Management System.
+              Next-generation Media Management System with advanced analytics, campaign tracking, and cross-platform performance metrics.
             </p>
             <div class="app-actions">
               <a
@@ -349,7 +665,7 @@
         </div>
 
         <!-- ReserveIt -->
-        <div class="app-card">
+        <div class="app-card" data-category="Operations">
           <div class="app-header">
             <div class="app-icon" style="background-color: var(--success)">
               <i class="fas fa-calendar-check"></i>
@@ -357,7 +673,9 @@
             <h2 class="app-title">ReserveIt</h2>
           </div>
           <div class="app-content">
-            <p class="app-description">Space Management Tool.</p>
+            <p class="app-description">
+              Intelligent Space Management Tool for booking meeting rooms, desks, and other workplace resources with ease and efficiency.
+            </p>
             <div class="app-actions">
               <a
                 href="http://reserveit.info/"
@@ -379,7 +697,7 @@
         </div>
 
         <!-- TaskTrak -->
-        <div class="app-card">
+        <div class="app-card" data-category="Operations">
           <div class="app-header">
             <div class="app-icon" style="background-color: var(--gray-700)">
               <i class="fas fa-tasks"></i>
@@ -387,7 +705,9 @@
             <h2 class="app-title">TaskTrak</h2>
           </div>
           <div class="app-content">
-            <p class="app-description">Task Tracker.</p>
+            <p class="app-description">
+              Comprehensive Task Tracking solution for teams with project management, deadline tracking, and team collaboration features.
+            </p>
             <div class="app-actions">
               <a
                 href="http://tasktrak.groupm-bd.com"
@@ -409,15 +729,18 @@
         </div>
 
         <!-- mNextMasterHub -->
-        <div class="app-card">
+        <div class="app-card" data-category="media">
+          <span class="new-badge">New</span>
           <div class="app-header">
             <div class="app-icon" style="background-color: var(--primary-dark)">
-              <i class="fa-solid fa-server"></i>
+              <i class="fas fa-server"></i>
             </div>
             <h2 class="app-title">mNextMasterHub</h2>
           </div>
           <div class="app-content">
-            <p class="app-description">Centralized hub for mNext.</p>
+            <p class="app-description">
+              Centralized hub for mNext with advanced data integration, reporting dashboards, and system-wide controls.
+            </p>
             <div class="app-actions">
               <a
                 href="http://masterhub.mnextbd.com/"
@@ -440,12 +763,25 @@
       </div>
     </main>
 
+    <footer>
+      <div class="footer-content">
+        <div>© 2025 GroupM. All rights reserved.</div>
+        <div class="footer-links">
+          <a href="#" class="footer-link">Help</a>
+          <a href="#" class="footer-link">Support</a>
+          <a href="#" class="footer-link">Privacy Policy</a>
+          <a href="#" class="footer-link">Terms of Service</a>
+        </div>
+      </div>
+    </footer>
+
     <div class="toast" id="toast">
       <i class="fas fa-check-circle"></i>
       <span>Link copied to clipboard!</span>
     </div>
 
     <script>
+      // Copy to clipboard functionality
       function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(
           function () {
@@ -460,6 +796,50 @@
           }
         );
       }
+
+      // Search functionality
+      const searchInput = document.getElementById("searchInput");
+      const appGrid = document.getElementById("appGrid");
+      const appCards = appGrid.querySelectorAll(".app-card");
+      
+      searchInput.addEventListener("input", function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        appCards.forEach(card => {
+          const title = card.querySelector(".app-title").innerText.toLowerCase();
+          const description = card.querySelector(".app-description").innerText.toLowerCase();
+          
+          if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+
+      // Category tabs functionality
+      const categoryTabs = document.querySelectorAll(".category-tab");
+      
+      categoryTabs.forEach(tab => {
+        tab.addEventListener("click", function() {
+          // Remove active class from all tabs
+          categoryTabs.forEach(t => t.classList.remove("active"));
+          
+          // Add active class to clicked tab
+          this.classList.add("active");
+          
+          const category = this.getAttribute("data-category");
+          
+          // Filter cards by category
+          appCards.forEach(card => {
+            if (category === "all" || card.getAttribute("data-category") === category) {
+              card.style.display = "block";
+            } else {
+              card.style.display = "none";
+            }
+          });
+        });
+      });
     </script>
   </body>
 </html>
